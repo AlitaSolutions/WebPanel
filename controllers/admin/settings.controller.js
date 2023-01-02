@@ -1,11 +1,18 @@
 const router = require('express').Router();
 const db = require('../../db');
+const mongo = require("mongodb");
+const {body, validationResult} = require("express-validator");
 class SettingsController{
     constructor(){
         router.get('/', this.getSettings);
-        router.post('/', this.createSetting);
-        router.patch('/:key', this.updateSetting);
-        router.delete('/:key', this.deleteSetting);
+        router.post('/',
+            body("key").notEmpty().isString(),
+            body("value").notEmpty().isString(),
+            this.createSetting);
+        router.patch('/:key',
+            body("value").notEmpty().isString(),
+            this.updateSetting);
+        router.delete('/:id', this.deleteSetting);
     }
 
     async getSettings(req, res){
@@ -13,6 +20,10 @@ class SettingsController{
         res.status(200).json(settings);
     }
     async createSetting(req,res){
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({errors: errors.array()});
+        }
         const {key,value} = req.body;
         //check if setting exists
         let setting = await db.settings().findOne({key});
@@ -26,6 +37,10 @@ class SettingsController{
         });
     }
     async updateSetting(req,res){
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({errors: errors.array()});
+        }
         const {key} = req.params;
         const {value} = req.body;
         const setting = await db.settings().findOneAndUpdate({key}, {$set: {value}});
@@ -36,8 +51,8 @@ class SettingsController{
         }
     }
     async deleteSetting(req,res){
-        const {key} = req.params;
-        const setting = await db.settings().deleteOne({key});
+        const {id} = req.params;
+        const setting = await db.settings().deleteOne({_id: new mongo.ObjectId(id)});
         if(setting.deletedCount === 1){
             res.status(200).json({message: 'Setting deleted'});
         }else{
