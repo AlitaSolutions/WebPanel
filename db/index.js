@@ -8,6 +8,8 @@ async function setup(){
     db.collection('platforms').createIndex({name: 1}, {unique: true});
     db.collection('schemas').createIndex({name: 1}, {unique: true});
     db.collection('settings').createIndex({key: 1}, {unique: true});
+    db.collection('services').createIndex({name: 1}, {unique: true});
+    db.collection('users').createIndex({email: 1}, {unique: true});
 }
 module.exports = {
     setup : setup,

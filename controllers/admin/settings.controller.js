@@ -33,7 +33,7 @@ class SettingsController{
         setting = await db.settings().insertOne({key,value});
         res.status(200).json({
             message: 'Setting created',
-            setting: await db.settings().findOne({_id: setting.insertedId}),
+            data: await db.settings().findOne({_id: setting.insertedId}),
         });
     }
     async updateSetting(req,res){

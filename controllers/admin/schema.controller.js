@@ -59,7 +59,7 @@ class SchemaController{
             schema = await db.schemas().insertOne({name, fields});
             res.status(200).json({
                 message: 'Schema created',
-                schema: await db.schemas().findOne({_id: schema.insertedId}),
+                data: await db.schemas().findOne({_id: schema.insertedId}),
             });
         }
     }

@@ -26,7 +26,7 @@ class PlatformController{
             platform = await db.platforms().insertOne({name});
             res.status(200).json({
                 message: 'Platform created',
-                platform: await db.platforms().findOne({_id: platform.insertedId}),
+                data: await db.platforms().findOne({_id: platform.insertedId}),
             });
         }
     }
