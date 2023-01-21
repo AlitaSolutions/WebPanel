@@ -70,14 +70,16 @@ class SchemaController{
         }
         const {id} = req.params;
         const {name, fields} = req.body;
-        const schema = await db.schemas().findOneAndUpdate({_id: id}, {$set: {name, fields}});
+        const schema = await db.schemas().findOneAndUpdate({_id: new mongo.ObjectId(id)}, {$set: {name, fields}});
         if(schema.value){
-            res.status(200).json({message: 'Schema updated'});
+            res.status(200).json({message: 'Schema updated' , data : await db.schemas().findOne({_id: new mongo.ObjectId(id)})});
+        }else{
+            res.status(500).json({message: 'Unable to update schema' , data: schema.lastErrorObject});
         }
     }
     async deleteSchema(req,res){
         const {id} = req.params;
-        const schema = await db.schemas().delete({_id: new mongo.ObjectId(id)});
+        const schema = await db.schemas().deleteOne({_id: new mongo.ObjectId(id)});
         if(schema.deletedCount === 1){
             res.status(200).json({message: 'Schema deleted'});
         }else{

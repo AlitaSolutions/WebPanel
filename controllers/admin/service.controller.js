@@ -54,7 +54,7 @@ class ServiceController {
         });
         res.status(200).json({
             message: 'Service created successfully',
-            data: service
+            data: await db.services().findOne({_id: service.insertedId})
         });
     }
 
@@ -86,7 +86,7 @@ class ServiceController {
             }
         });
         if (service.value) {
-            res.status(200).json({message: 'Service updated'});
+            res.status(200).json({message: 'Service updated' , data : await db.services().findOne({_id: new mongo.ObjectId(id)})});
         } else {
             res.status(404).json({message: 'Service not found'});
         }

@@ -19,6 +19,7 @@ module.exports = {
     schemas : ()=>db.collection('schemas'),
     services : ()=>db.collection('services'),
     servers : ()=>db.collection('servers'),
-    settings : ()=>db.collection('settings')
+    settings : ()=>db.collection('settings'),
+    users : ()=>db.collection('users'),
 
 }
