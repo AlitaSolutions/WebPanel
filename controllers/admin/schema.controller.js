@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const db = require('../../db');
 const mongo = require("mongodb");
-const {body, validationResult} = require("express-validator");
+const {body, validationResult, param} = require("express-validator");
 class SchemaController{
     constructor(){
         router.get('/', this.getSchemas);
@@ -10,6 +10,7 @@ class SchemaController{
             body('fields').isArray(),
             this.createSchema);
         router.patch('/:id',
+            param('id').isMongoId().notEmpty(),
             body('name').notEmpty().isString(),
             body('fields').isArray(),
             this.updateSchema);
