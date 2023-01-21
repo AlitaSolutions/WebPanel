@@ -28,7 +28,9 @@ class ServiceController {
     }
 
     async getServices(req, res) {
-        res.status(200).json(ServiceService.getServices());
+        res.status(200).json({
+            data: await ServiceService.getServices()
+        });
     }
 
     async createService(req, res) {
@@ -53,7 +55,7 @@ class ServiceController {
         }
         const {id} = req.params;
         try {
-            const service = ServiceService.updateService(id, req.body);
+            const service = await ServiceService.updateService(id, req.body);
             res.status(200).json({message: 'Service updated', data: service});
         } catch (e) {
             return ErrorHandler.handle(res, e);

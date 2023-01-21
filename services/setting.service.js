@@ -17,7 +17,7 @@ class SettingService {
     }
     static async updateSetting(key, value){
         const settings = await db.settings().findOneAndUpdate({key}, {$set: {value}});
-        if (settings.value) {
+        if (settings) {
             return db.settings().findOne({key});
         }else{
             throw new InternalError('unable to update setting');

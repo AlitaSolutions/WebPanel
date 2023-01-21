@@ -24,7 +24,7 @@ class PlatformService {
             throw new ConflictError('Platform already exists');
         }else {
             const updated = await db.platforms().findOneAndUpdate({_id: new mongo.ObjectId(id)}, {$set: {name}});
-            if (updated.value) {
+            if (updated) {
                 return await db.platforms().findOne({_id: new mongo.ObjectId(id)});
             }else{
                 throw new InternalError('Platform not updated');

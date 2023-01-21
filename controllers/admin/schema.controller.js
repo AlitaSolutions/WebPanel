@@ -44,7 +44,7 @@ class SchemaController{
     }
      */
     async getSchemas(req, res){
-        res.status(200).json({data: SchemaService.getSchema() });
+        res.status(200).json({data: await SchemaService.getSchema() });
     }
     async createSchema(req,res){
         const errors = validationResult(req);

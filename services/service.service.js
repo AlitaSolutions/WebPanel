@@ -10,6 +10,7 @@ class ServiceService {
         for (let service of services) {
             service.schema = await db.schemas().findOne({_id: service.schema});
         }
+        return services;
     }
     static async createService(body){
         const {name, visibleName , description,order,enabled,schemaId} = body;
@@ -29,7 +30,7 @@ class ServiceService {
         return await db.services().findOne({_id: service.insertedId});
     }
     static async updateService(id, body){
-        const {name, visibleName , description,order,enabled,schemaId} = req.body;
+        const {name, visibleName , description,order,enabled,schemaId} = body;
         let service = await db.services().findOne({_id : new mongo.ObjectId(id)});
         if (!service){
             throw new NotFoundError('Service not found');
@@ -50,7 +51,7 @@ class ServiceService {
                 schema : new mongo.ObjectId(schemaId)
             }
         });
-        if (service.value) {
+        if (service) {
             return await db.services().findOne({_id: new mongo.ObjectId(id)});
         } else {
            throw new InternalError('Service not updated');

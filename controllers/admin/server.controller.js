@@ -19,7 +19,7 @@ class ServerController {
     async getServers(req, res) {
         const serviceId = req.params.serviceId;
         const serversWithSchema = await ServerService.getServerList(serviceId);
-        res.status(200).json(serversWithSchema);
+        res.status(200).json({data: serversWithSchema});
     }
     // POST /api/admin/servers/:serviceId
     // {

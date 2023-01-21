@@ -15,12 +15,12 @@ class SchemaService {
             throw new ConflictError('Schema already exists');
         }
         schema = await db.schemas().insertOne({name, fields});
-        return schema;
+        return await db.schemas().findOne({_id: schema.insertedId});
     }
     static async updateSchema(id,body){
         const {name, fields} = body;
         const schema = await db.schemas().findOneAndUpdate({_id: new mongo.ObjectId(id)}, {$set: {name, fields}});
-        if(schema.value){
+        if(schema){
             return await db.schemas().findOne({_id: new mongo.ObjectId(id)});
         }else{
             throw new InternalError('Unable to update schema');

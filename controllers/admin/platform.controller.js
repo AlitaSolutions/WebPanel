@@ -11,7 +11,7 @@ class PlatformController{
         router.delete('/:id', param('id').isMongoId().notEmpty(),this.deletePlatform);
     }
     async getPlatforms(req, res){
-        res.status(200).json({data: PlatformService.getPlatforms()});
+        res.status(200).json({data: await PlatformService.getPlatforms()});
     }
     async createPlatform(req,res){
         const errors = validationResult(req);
@@ -20,7 +20,7 @@ class PlatformController{
         }
         const {name} = req.body;
         try {
-            let platform = PlatformService.createPlatform(name);
+            let platform = await PlatformService.createPlatform(name);
             return res.status(200).json({
                 message: 'Platform created',
                 data: platform,
@@ -33,7 +33,7 @@ class PlatformController{
         const {id} = req.params;
         const {name} = req.body;
         try {
-            const platform = PlatformService.updatePlatform(id, name);
+            const platform = await PlatformService.updatePlatform(id, name);
             res.status(200).json({message: 'Platform updated', data: platform});
         }catch (e) {
             return ErrorHandler.handle(res,e);

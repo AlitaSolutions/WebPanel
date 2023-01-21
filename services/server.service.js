@@ -75,9 +75,11 @@ class ServerService {
         const servers = await db.servers().find({service: new mongo.ObjectId(serviceId)}).toArray();
         let serversWithSchema = [];
         for (const server of servers) {
-            const serverWithSchema = await ServerService.getServer(server._id);
+            let serverWithSchema = await ServerService.getServer(server._id);
+            serverWithSchema.id = server._id;
             serversWithSchema.push(serverWithSchema);
         }
+        return serversWithSchema;
     }
     static async deleteServer(serverId){
         const server = await db.servers().findOne({_id: new mongo.ObjectId(serverId)});
@@ -88,7 +90,7 @@ class ServerService {
             throw new NotFoundError('Server not found');
         }
     }
-    static async updateServer(serviceId, serverId, body){
+    static async updateServer( serverId,serviceId, body){
         const service = await db.services().findOne({_id : new mongo.ObjectId(serviceId)});
         const schemaId = service.schema;
         const schema = await db.schemas().findOne({_id : new mongo.ObjectId(schemaId)});
@@ -119,10 +121,10 @@ class ServerService {
             throw new BadRequestError(errBag);
         }
         const updated = await db.servers().updateOne({_id: new mongo.ObjectId(serverId)}, {$set: server});
-        if (updated.value){
+        if (updated){
             return (await db.servers().findOne({_id: new mongo.ObjectId(serverId)}));
         }else{
-            throw new InternalError('Server not found');
+            throw new InternalError('unable to update server');
         }
     }
 }
