@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {body, validationResult, param} = require("express-validator");
 const SchemaService = require("../../services/schema.service");
 const ErrorHandler = require("../../errors/error.handler");
+const BadRequestError = require("../../errors/badrequest.error");
 class SchemaController{
     constructor(){
         router.get('/', this.getSchemas);
@@ -48,7 +49,7 @@ class SchemaController{
     async createSchema(req,res){
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-           return ErrorHandler.handle(res, errors.array());
+           return ErrorHandler.handle(res, new BadRequestError(errors.array()));
         }
         try {
             const schema = await SchemaService.createSchema(req.body);
@@ -63,7 +64,7 @@ class SchemaController{
     async updateSchema(req,res){
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-            return res.status(400).json({errors: errors.array()});
+            return ErrorHandler.handle(res, new BadRequestError(errors.array()));
         }
         const {id} = req.params;
         try {

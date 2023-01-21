@@ -68,7 +68,7 @@ class ServerController {
             return ErrorHandler.handle(res, new BadRequestError(errors.array()));
         }
         const serverId = req.params.serverId;
-        const deleted = ServerService.deleteServer(serverId);
+        const deleted = await ServerService.deleteServer(serverId);
         if (deleted.deletedCount === 0) {
             return ErrorHandler.handle(res, new NotFoundError('Server not found'));
         }

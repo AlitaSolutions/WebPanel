@@ -42,7 +42,7 @@ class PlatformController{
     async deletePlatform(req,res){
         const {id} = req.params;
         try {
-            const platform = PlatformService.deletePlatform(id);
+            await PlatformService.deletePlatform(id);
             res.status(200).json({message: 'Platform deleted'});
         }catch (e) {
            return ErrorHandler.handle(res,e);

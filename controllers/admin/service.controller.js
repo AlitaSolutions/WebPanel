@@ -1,6 +1,4 @@
 const router = require('express').Router();
-const db = require('../../db');
-const mongo = require("mongodb");
 const {body, validationResult, param} = require("express-validator");
 const ServiceService = require("../../services/service.service");
 const ErrorHandler = require("../../errors/error.handler");
@@ -65,7 +63,7 @@ class ServiceController {
     async deleteService(req, res) {
         const {id} = req.params;
         try {
-            const service = ServiceService.deleteService(id);
+            await ServiceService.deleteService(id);
             res.status(200).json({message: 'Service deleted'});
         }catch (e){
             return ErrorHandler.handle(res, e);
