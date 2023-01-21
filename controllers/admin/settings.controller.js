@@ -18,8 +18,10 @@ class SettingsController {
     }
 
     async getSettings(req, res) {
-        const settings = SettingsService.getSettings();
-        res.status(200).json(settings);
+        const settings = await SettingsService.getSettings();
+        res.status(200).json({
+            data: settings
+        });
     }
 
     async createSetting(req, res) {
