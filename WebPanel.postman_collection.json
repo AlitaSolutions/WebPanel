@@ -1,0 +1,473 @@
+{
+	"info": {
+		"_postman_id": "18237744-be76-475e-9e5b-0b792a4abfef",
+		"name": "WebPanel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Platform",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/admin/platform",
+							"path": [
+								"admin",
+								"platform"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Android\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/platform",
+							"path": [
+								"admin",
+								"platform"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"android\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/platform/63cb341d3e0827b7ca3e4f05",
+							"path": [
+								"admin",
+								"platform",
+								"63cb341d3e0827b7ca3e4f05"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/admin/platform/63cb341d3e0827b7ca3e4f05",
+							"path": [
+								"admin",
+								"platform",
+								"63cb341d3e0827b7ca3e4f05"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schema",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/admin/schema",
+							"path": [
+								"admin",
+								"schema"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"openplatform\",\r\n    \"fields\" : [ \r\n        {\r\n            \"type\" : \"string\", \r\n            \"name\" : \"name\", \r\n            \"required\" : true,\r\n            \"default\" : \"?\"\r\n        },\r\n        {\r\n            \"type\" : \"bool\", \r\n            \"name\" : \"enabled\", \r\n            \"required\" : false,\r\n            \"default\" : \"true\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/schema",
+							"path": [
+								"admin",
+								"schema"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"openplatform\",\r\n    \"fields\" : [ \r\n        {\r\n            \"type\" : \"string\", \r\n            \"name\" : \"name\", \r\n            \"required\" : true,\r\n            \"default\" : \"?\"\r\n        },\r\n        {\r\n            \"type\" : \"bool\", \r\n            \"name\" : \"enabled\", \r\n            \"required\" : false,\r\n            \"default\" : \"true\"\r\n        },\r\n        {\r\n            \"type\" : \"number\", \r\n            \"name\" : \"port\", \r\n            \"required\" : false,\r\n            \"default\" : 443\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/schema/63cb3716c8788afb0da1325e",
+							"path": [
+								"admin",
+								"schema",
+								"63cb3716c8788afb0da1325e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/admin/schema/63cb3582c9b36741abfedee7",
+							"path": [
+								"admin",
+								"schema",
+								"63cb3582c9b36741abfedee7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Server",
+			"item": [
+				{
+					"name": "clean",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "/admin/server/clean",
+							"path": [
+								"admin",
+								"server",
+								"clean"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"testing2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/server/63cb380c852ef4f03887b418",
+							"path": [
+								"admin",
+								"server",
+								"63cb380c852ef4f03887b418"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"testing\",\r\n    \"enable\" : true,\r\n    \"port\" : 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/server/63cb380c852ef4f03887b418/63cb3eaa37cefca94ae46380",
+							"path": [
+								"admin",
+								"server",
+								"63cb380c852ef4f03887b418",
+								"63cb3eaa37cefca94ae46380"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/admin/server/63cb3dd937a4cc71e6186375",
+							"path": [
+								"admin",
+								"server",
+								"63cb3dd937a4cc71e6186375"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/admin/server/63cb380c852ef4f03887b418",
+							"path": [
+								"admin",
+								"server",
+								"63cb380c852ef4f03887b418"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Setting",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/admin/setting",
+							"path": [
+								"admin",
+								"setting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"key\" : \"TesT\", \"value\" : \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/setting",
+							"path": [
+								"admin",
+								"setting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"value\" : \"456\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/setting/TesT",
+							"path": [
+								"admin",
+								"setting",
+								"TesT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/admin/setting/63cb388732170dd790f9d311",
+							"path": [
+								"admin",
+								"setting",
+								"63cb388732170dd790f9d311"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/admin/service",
+							"path": [
+								"admin",
+								"service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"openplatform\",\r\n    \"visibleName\": \"Open Platform\",\r\n    \"description\": \"an open-platform to reduce data\",\r\n    \"order\" : 0 ,\r\n    \"enabled\" : true,\r\n    \"schemaId\" : \"63cb3716c8788afb0da1325e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/service",
+							"path": [
+								"admin",
+								"service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"openplatform\",\r\n    \"visibleName\": \"Open Platform\",\r\n    \"description\": \"an open-platform to reduce data\",\r\n    \"order\" : 0 ,\r\n    \"enabled\" : true,\r\n    \"schemaId\" : \"63cb3716c8788afb0da1325e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/admin/service/63cb380c852ef4f03887b418",
+							"path": [
+								"admin",
+								"service",
+								"63cb380c852ef4f03887b418"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/admin/service/63cb37e3c8788afb0da1325f",
+							"path": [
+								"admin",
+								"service",
+								"63cb37e3c8788afb0da1325f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.url.host = \"127.0.0.1:3000\""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

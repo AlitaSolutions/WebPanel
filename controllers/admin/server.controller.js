@@ -42,7 +42,7 @@ class ServerController {
                 data: server
             });
         }catch (e){
-            return ErrorHandler.handle(e);
+            return ErrorHandler.handle(res,e);
         }
     }
     async updateServer(req, res) {

@@ -14,7 +14,8 @@ module.exports = {
             }
         }else{
             res.status(500).json({
-                error: e.message
+                error: e.message,
+                stack: e.stack
             })
         }
     }
