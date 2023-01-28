@@ -10,7 +10,7 @@ const db = require('./db');
 const app = express();
 
 async function setup(){
-    await db.connection('mongodb://127.0.0.1:27017/panel');
+    await db.connection(process.env.MONGO_URL || 'mongodb://administrator:password@127.0.0.1:27017/panel');
     await db.setup();
     app.use(logger('dev'));
     app.use(express.json());
