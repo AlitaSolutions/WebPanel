@@ -3,6 +3,7 @@ const mongo = require("mongodb");
 const ConflictError = require("../errors/conflict.error");
 const NotFoundError = require("../errors/notfound.error");
 const InternalError = require("../errors/internal.error");
+const {EventEmitter, Events} = require("../events/emitter");
 
 class ServiceService {
     static async getServices() {
@@ -27,7 +28,9 @@ class ServiceService {
             enabled : enabled,
             schema : new mongo.ObjectId(schemaId)
         });
-        return await db.services().findOne({_id: service.insertedId});
+        service = await db.services().findOne({_id: service.insertedId});
+        EventEmitter.emit(Events.SERVICE_MODIFIED, {action: 'create', service: service})
+        return service ;
     }
     static async updateService(id, body){
         const {name, visibleName , description,order,enabled,schemaId} = body;
@@ -52,7 +55,9 @@ class ServiceService {
             }
         });
         if (service) {
-            return await db.services().findOne({_id: new mongo.ObjectId(id)});
+            service =  await db.services().findOne({_id: new mongo.ObjectId(id)});
+            EventEmitter.emit(Events.SERVICE_MODIFIED, {action: 'update', service: service})
+            return service;
         } else {
            throw new InternalError('Service not updated');
         }
@@ -61,6 +66,7 @@ class ServiceService {
         let service = await db.services().findOne({_id: new mongo.ObjectId(id)});
         if(service){
             await db.services().deleteOne({_id: new mongo.ObjectId(id)});
+            EventEmitter.emit(Events.SERVICE_MODIFIED, {action: 'delete', service: service})
             return service;
         }else{
             throw new NotFoundError('Service not found');

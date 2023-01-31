@@ -3,6 +3,7 @@ const mongo = require("mongodb");
 const NotFoundError = require("../errors/notfound.error");
 const BadRequestError = require("../errors/badrequest.error");
 const InternalError = require("../errors/internal.error");
+const {EventEmitter, Events} = require("../events/emitter");
 
 class ServerService {
     static async getServer(serverId){
@@ -63,7 +64,9 @@ class ServerService {
             service: new mongo.ObjectId(serviceId),
             ...server
         });
-        return (await db.servers().findOne({_id: inserted.insertedId}));
+        const serverDoc = await db.servers().findOne({_id: inserted.insertedId});
+        EventEmitter.emit(Events.SERVICE_MODIFIED,{action:"create",server : serverDoc})
+        return serverDoc;
     }
     static async cleanupServers(){
         for (const server of await db.servers().find().toArray()) {
@@ -85,6 +88,7 @@ class ServerService {
         const server = await db.servers().findOne({_id: new mongo.ObjectId(serverId)});
         if (server) {
             await db.servers().deleteOne({_id: new mongo.ObjectId(serverId)});
+            EventEmitter.emit(Events.SERVICE_MODIFIED,{action : "delete" ,server : server})
             return server;
         }else{
             throw new NotFoundError('Server not found');
@@ -120,9 +124,11 @@ class ServerService {
         if (errBag.length > 0) {
             throw new BadRequestError(errBag);
         }
-        const updated = await db.servers().updateOne({_id: new mongo.ObjectId(serverId)}, {$set: server});
+        let updated = await db.servers().updateOne({_id: new mongo.ObjectId(serverId)}, {$set: server});
         if (updated){
-            return (await db.servers().findOne({_id: new mongo.ObjectId(serverId)}));
+            updated = (await db.servers().findOne({_id: new mongo.ObjectId(serverId)}));
+            EventEmitter.emit(Events.SERVICE_MODIFIED,{action : "update",server : updated})
+            return updated;
         }else{
             throw new InternalError('unable to update server');
         }
