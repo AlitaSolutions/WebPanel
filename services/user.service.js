@@ -4,10 +4,13 @@ const {body, validationResult} = require('express-validator');
 const db = require("../db");
 const ConflictError = require("../errors/conflict.error");
 const NotFoundError = require("../errors/notfound.error");
-
+const ForbiddenException = require("../errors/forbidden.error");
 
 class UserService {
     static async createUser(body) {
+        if (process.env.ENABLE_REGISTRATION !== "true") {
+            throw new ForbiddenException("Registration is disabled");
+        }
         const {email, password, name} = body;
         let user = await db.users().findOne({email: email});
         if (user) {
@@ -24,11 +27,11 @@ class UserService {
         const {email, password} = body;
         const user = await db.users().findOne({email: email});
         if (!user) {
-            return NotFoundError("User not found");
+            throw new NotFoundError("User not found");
         }else {
             const validPassword = await bcrypt.compare(password, user.password);
             if (!validPassword) {
-                return NotFoundError("Invalid password");
+                throw new NotFoundError("Invalid password");
             }
             const token = jwt.sign({id: user._id}, process.env.JWT_SECRET || "secret", {expiresIn: "1h"});
             return {token: token, user: {email : user.email, name: user.name}};
